@@ -1,0 +1,59 @@
+.subtitle-1 {
+    color: var(--grey-grey, #9E9E9E);
+
+    /* subtitle-1/subtitle-1 */
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 28px;
+    letter-spacing: 0.024px;
+}
+
+.subtitle-2 {
+    color: var(--standart-theme-primary, #2F3857);
+
+    /* subtitle-2/subtitle-2,  regular */
+    font-family: Roboto;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: 0.014px;
+}
+
+.body-1 {
+    color: var(--standart-theme-primary, #2F3857);
+
+    /* body-1/body-1, medium */
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.08px;
+}
+
+.body-2 {
+    color: var(--standart-theme-primary, #2F3857);
+
+    /* body-2/body-2, medium */
+    font-family: Roboto;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0.035px;
+}
+
+.h6 {
+    color: var(--standart-theme-primary, #2F3857);
+
+    /* h6/h6 */
+    font-family: Roboto;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 32px;
+    letter-spacing: 0.05px;
+}
