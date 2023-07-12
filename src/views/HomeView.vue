@@ -23,7 +23,7 @@ const handleAlertMessage = (value) => {
   <main class="tw-relative tw-max-w-full tw-flex tw-h-full">
     <!-- This is ALert box -->
     <div class="tw-absolute -tw-top-10 tw-left-1/4 tw-z-10">
-      <VAlert v-if="showAlert" :type="alertType" dismissible transition="scale-transition" variant="flat"
+      <VAlert v-if="showAlert" :type="alertType" dismissible transition="scale-transition" variant="tonal"
         :color="alertType === 'warning' ? '#FAC802' : '#FF4465'" :width="360" position="fixed">
         {{ alertMessage }}
       </VAlert>
