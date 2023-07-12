@@ -1,5 +1,6 @@
 <script setup>
-import { ref, watchEffect } from 'vue';
+import PaymentInstance from './PaymentInstance.vue';
+import { ref, watchEffect, computed } from 'vue';
 import { useApiStore } from '../stores';
 import { storeToRefs } from 'pinia';
 
@@ -9,22 +10,21 @@ const { virtualMachineInfo, selectedRegionHasPlans } = storeToRefs(useApi);
 const emit = defineEmits(['show-alert', 'alert-type', 'alert-message']);
 
 const quantity = ref(1);
+const totalMoney = ref(57.95);
+
 const enableIPv4 = ref(false);
 const deployButtonDisabled = ref(true);
 const showAlert = ref(false);
 const alertType = ref('');
 const alertMessage = ref('');
 
-
-const incrementQuantity = () => {
-    quantity.value++;
+const quantityUpdate = (newQuantity) => {
+    quantity.value = newQuantity;
 };
 
-const decrementQuantity = () => {
-    if (quantity.value > 1) {
-        quantity.value--;
-    }
-};
+const totalMoneyFormatted = computed(() => {
+    return `$ ${(quantity.value * totalMoney.value).toFixed(2)}`;
+});
 
 const handleIPv4Change = (event) => {
     enableIPv4.value = event.target.checked;
@@ -81,20 +81,7 @@ watchEffect(() => {
     <div class="tw-px-5 tw-py-8">
         <p class="tw-mb-1 body-2">Instance quantity:</p>
         <!-- instance quantity frame -->
-        <div
-            class="tw-w-[243px] tw-h-10 tw-flex tw-items-center tw-justify-between tw-mb-6 tw-border tw-border-greyLighten tw-rounded">
-            <div class="tw-w-12 tw-h-10 tw-border-r tw-border-greyLighten tw-flex tw-items-center tw-justify-center tw-cursor-pointer"
-                :class="{ 'tw-cursor-not-allowed': quantity === 1 }" @click="decrementQuantity">
-                <VIcon color="#00000042">mdi-minus</VIcon>
-            </div>
-            <div>
-                {{ quantity }}
-            </div>
-            <div class="tw-w-12 tw-h-10 tw-border-l tw-border-greyLighten tw-flex tw-items-center tw-justify-center tw-cursor-pointer"
-                @click="incrementQuantity">
-                <VIcon color="#757575">mdi-plus</VIcon>
-            </div>
-        </div>
+        <PaymentInstance :quantity="quantity" @quantity-update="quantityUpdate" />
 
         <div class="tw-flex tw-items-center">
             <input v-model="enableIPv4" @change="handleIPv4Change" type="checkbox">
@@ -108,7 +95,8 @@ watchEffect(() => {
         <div class="tw-flex tw-items-center tw-justify-between tw-mb-7">
             <p class="h6">Total</p>
             <div>
-                <span class="tw-text-[24px] tw-text-textPrimary tw-font-roboto tw-font-medium">$ 57.95 </span>
+                <span class="tw-text-[24px] tw-text-textPrimary tw-font-roboto tw-font-medium">{{ totalMoneyFormatted }}
+                </span>
                 <span class="tw-text-[#757575]">/month</span>
             </div>
         </div>
