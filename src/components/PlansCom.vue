@@ -41,20 +41,23 @@ onMounted(async () => {
 
 const selectedPlan = ref(null);
 
-const selectPlan = (clickable, item) => {
-    if (selectedPlan.value === item.item.raw) {
+
+
+const selectPlan = (item) => {
+    console.log(item[0].raw);
+    if (selectedPlan.value === item[0].raw) {
         selectedPlan.value = null;
         delete virtualMachineInfo.value.selected_plan;
     } else {
-        selectedPlan.value = item.item.raw;
+        selectedPlan.value = item[0].raw;
         virtualMachineInfo.value.selected_plan = {
-            id: item.item.raw.id,
-            region_id: item.item.raw.region_id,
-            cpu_cores: item.item.raw.cpu_cores,
-            memory_size_in_GB: item.item.raw.memory_size_in_GB,
-            connection_up_bound_speed: item.item.raw.connection_up_bound_speed,
-            monthly_price: item.item.raw.monthly_price,
-            hourly_price: item.item.raw.hourly_price,
+            id: item[0].raw.id,
+            region_id: item[0].raw.region_id,
+            cpu_cores: item[0].raw.cpu_cores,
+            memory_size_in_GB: item[0].raw.memory_size_in_GB,
+            connection_up_bound_speed: item[0].raw.connection_up_bound_speed,
+            monthly_price: item[0].raw.monthly_price,
+            hourly_price: item[0].raw.hourly_price,
         };
     }
 };
@@ -64,7 +67,7 @@ const selectPlan = (clickable, item) => {
     <div class="tw-mt-14">
         <p class="tw-px-8 tw-pb-4 h6">Plans</p>
         <VDataTable class="elevation-0 subtitle-2" :headers="headers" :items="formattedPlans" item-value="name"
-            select-strategy="single" show-select bg-color="#FFFFFF" @click:row="($event, item) => selectPlan($event, item)">
+            select-strategy="single" single-select show-select bg-color="#FFFFFF" @update:modelValue="selectPlan">
             <template #item.hourly_price="{ item }">
                 <div class="tw-flex tw-items-end">
                     <VBtn density="compact" flat rounded="circle" class="tw-ml-auto">
@@ -73,10 +76,10 @@ const selectPlan = (clickable, item) => {
                     </VBtn>
                 </div>
             </template>
-            <template #item.data-table-select="{ item, isSelected, toggleSelect }">
-                <VRadio color="#2C5EFF" :value="isSelected([{ value: item.item, selectable: true }])"
-                    @change="toggleSelect({ value: item, selectable: true })"></VRadio>
-
+            <template #item.data-table-select="{ item, index, isSelected, toggleSelect }">
+                <VRadio color="#2C5EFF" :value="isSelected([{ value: item.raw, selectable: true }])"
+                    :checked="item.raw === selectedPlan" @change="toggleSelect({ value: item, selectable: true })">
+                </VRadio>
             </template>
         </VDataTable>
     </div>
