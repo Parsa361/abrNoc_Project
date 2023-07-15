@@ -1,19 +1,15 @@
 <script setup>
-import { ref } from 'vue';
+
 const props = defineProps(['quantity']);
 const emit = defineEmits(['quantity-update']);
 
-const propQuantity = ref(props.quantity);
-
 const incrementQuantity = () => {
-    propQuantity.value += 1;
-    emit('quantity-update', propQuantity.value);
+    emit('quantity-update', props.quantity + 1);
 };
 
 const decrementQuantity = () => {
-    if (propQuantity.value > 1) {
-        propQuantity.value--;
-        emit('quantity-update', propQuantity.value);
+    if (props.quantity > 1) {
+        emit('quantity-update', props.quantity - 1);
     }
 };
 </script>
@@ -27,7 +23,7 @@ const decrementQuantity = () => {
             <VIcon color="#00000042">mdi-minus</VIcon>
         </div>
         <div>
-            {{ propQuantity }}
+            {{ quantity }}
         </div>
         <div class="tw-w-12 tw-h-10 tw-border-l tw-border-greyLighten tw-flex tw-items-center tw-justify-center tw-cursor-pointer"
             @click="incrementQuantity">
