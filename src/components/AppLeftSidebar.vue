@@ -1,4 +1,25 @@
 <script setup>
+const getUrl = (name) => {
+    return new URL(`../assets/icons/${name}.svg`, import.meta.url).href;
+};
+
+const first_icons = [
+    'Dashboard',
+    'Instances',
+    'Snapshots',
+    'SSH',
+    'Volume',
+];
+const second_icons = [
+    'Billing',
+    'Networking',
+    'Report',
+
+];
+const third_icons = [
+    'Support',
+    'Help',
+];
 
 </script>
 
@@ -7,25 +28,10 @@
         <!-- upper frame container -->
         <div class="tw-inline-flex tw-flex-col tw-items-start tw-gap-1 ">
             <!-- items -->
-            <div class="tw-flex tw-items-center h-10 tw-py-2.5 tw-ps-4">
-                <img src="../assets/icons/dashboard.svg" alt="">
-                <span class="tw-ps-3">Dashboard</span>
-            </div>
-            <div class="tw-flex tw-items-center h-10 tw-py-2.5 tw-ps-4 tw-bg-activeBlue tw-w-full tw-rounded">
-                <img src="../assets/icons/instances.svg" alt="">
-                <span class="tw-ps-3 tw-text-white">Instances</span>
-            </div>
-            <div class="tw-flex tw-items-center h-10 tw-py-2.5 tw-ps-4">
-                <img src="../assets/icons/snapshots.svg" alt="">
-                <span class="tw-ps-3">Snapshots</span>
-            </div>
-            <div class="tw-flex tw-items-center h-10 tw-py-2.5 tw-ps-4">
-                <img src="../assets/icons/ssh.svg" alt="">
-                <span class="tw-ps-3">SSH Keys</span>
-            </div>
-            <div class="tw-flex tw-items-center h-10 tw-py-2.5 tw-ps-4">
-                <img src="../assets/icons/volume.svg" alt="">
-                <span class="tw-ps-3 tw-text-[#00000042]">Volume</span>
+            <div v-for="(icon, index) in first_icons" :key="icon" class="tw-flex tw-items-center h-10 tw-py-2.5 tw-ps-4"
+                :class="index === 1 ? 'tw-bg-activeBlue tw-w-full tw-rounded tw-text-white' : ''">
+                <img :src="getUrl(icon)" alt="">
+                <span class="tw-ps-3">{{ icon }}</span>
             </div>
 
             <!-- horizontal line -->
@@ -34,30 +40,20 @@
             <!-- second frame container -->
             <div class="tw-inline-flex tw-flex-col tw-items-start tw-gap-1 ">
                 <!-- items -->
-                <div class="tw-flex tw-items-center h-10 tw-py-2.5 tw-ps-4">
-                    <img src="../assets/icons/billing.svg" alt="">
-                    <span class="tw-ps-3">Billing</span>
-                </div>
-                <div class="tw-flex tw-items-center h-10 tw-py-2.5 tw-ps-4">
-                    <img src="../assets/icons/networking.svg" alt="">
-                    <span class="tw-ps-3">Networking</span>
-                </div>
-                <div class="tw-flex tw-items-center h-10 tw-py-2.5 tw-ps-4">
-                    <img src="../assets/icons/report.svg" alt="">
-                    <span class="tw-ps-3">Report</span>
+                <div v-for="icon in second_icons" :key="icon" class="tw-flex tw-items-center h-10 tw-py-2.5 tw-ps-4">
+                    <img :src="getUrl(icon)" alt="">
+                    <span class="tw-ps-3">{{ icon }}</span>
                 </div>
             </div>
         </div>
+
         <!-- down frame container -->
         <div class="tw-inline-flex tw-flex-col tw-items-start tw-gap-1">
             <!-- items -->
-            <div class="tw-flex tw-items-center h-10 tw-py-2.5 tw-ps-4 tw-border tw-w-full">
-                <img src="../assets/icons/support.svg" alt="">
-                <span class="tw-ps-3">Support</span>
-            </div>
-            <div class="tw-flex tw-items-center h-10 tw-py-2.5 tw-ps-4 tw-border tw-w-full">
-                <img src="../assets/icons/help.svg" alt="">
-                <span class="tw-ps-3">Help</span>
+            <div v-for="icon in third_icons" :key="icon"
+                class="tw-flex tw-items-center h-10 tw-py-2.5 tw-ps-4 tw-border tw-w-full">
+                <img :src="getUrl(icon)" alt="">
+                <span class="tw-ps-3">{{ icon }}</span>
             </div>
         </div>
     </div>
