@@ -30,18 +30,8 @@ const formattedPlans = computed(() => {
         };
     });
 });
-onMounted(async () => {
-    try {
-        await useApi.handlePlans(props.selectedRegion);
-        plans.value = plansByRegion.value;
-    } catch (error) {
-        console.error('Failed to fetch plans:', error);
-    }
-});
 
 const selectedPlan = ref(null);
-
-
 
 const selectPlan = (item) => {
     console.log(item[0].raw);
@@ -61,6 +51,15 @@ const selectPlan = (item) => {
         };
     }
 };
+
+onMounted(async () => {
+    try {
+        await useApi.handlePlans(props.selectedRegion);
+        plans.value = plansByRegion.value;
+    } catch (error) {
+        console.error('Failed to fetch plans:', error);
+    }
+});
 </script>
 
 <template>
@@ -76,9 +75,9 @@ const selectPlan = (item) => {
                     </VBtn>
                 </div>
             </template>
-            <template #item.data-table-select="{ item, index, isSelected, toggleSelect }">
+            <template #item.data-table-select="{ item, isSelected, toggleSelect }">
                 <VRadio color="#2C5EFF" :value="isSelected([{ value: item.raw, selectable: true }])"
-                    :checked="item.raw === selectedPlan" @change="toggleSelect({ value: item, selectable: true })">
+                    :checked="item === selectedPlan" @change="toggleSelect({ value: item, selectable: true })">
                 </VRadio>
             </template>
         </VDataTable>
